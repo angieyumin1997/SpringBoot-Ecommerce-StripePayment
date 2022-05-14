@@ -5,25 +5,14 @@
   
     #cta {
       position:absolute;
-      top:35%;
-      left:40%;
-      opacity: 1.0;
-    }
+      top:65%;
+      left:14%;
+      opacity: 0.75;
 
-    .box{
-      width:450px;
     }
-
-    #yoga-top-wrapper {
-      position: relative;
-    }
-
-    #yoga-cta {
-      position:absolute;
-      top:70%;
-      left:10%;
-      opacity: 1.0;
-    }
-
-  
   }
+
+  .box{
+      width:400px;
+  }
+

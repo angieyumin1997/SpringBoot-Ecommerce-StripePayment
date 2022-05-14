@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <title>Yonge Sports</title>
+     <style>
+      body {
+        overflow-x: hidden;
+      }
+      </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">YONGE SPORTS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Shop</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Category</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa-solid fa-user"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+
+      <!-- Category -->
+      <form method="POST" action = "/admin/category/updatecategory">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col">
+                    <label for="name" class="form-label">Category ID</label>
+                    <input type="text" class="form-control" name="id" id="id" th:value="${category.category_id}" readonly>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <label for="name" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" name="name" id="name" th:value="${category.category_name}" required>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <label for="email" class="form-label">Category Description</label>
+                    <input type="text" class="form-control" name="description" id="description" th:value="${category.description}" required>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+      <!-- End category -->
+
+
+
+<!-- Footer -->
+<footer class="row">
+    <section class="col-12">
+      <div class="bg-dark p-3 ">
+       <p class="text-light">
+         (c) Yonge Sports 2022
+       </p>
+       </div>
+     </section>
+   </footer>
+ <!-- end footer -->
+ 
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ </body>
+ </html>
