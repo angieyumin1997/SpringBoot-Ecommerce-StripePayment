@@ -1,0 +1,18 @@
+@media screen and (min-width:992px) {
+    #top-wrapper {
+      position: relative;
+    }
+  
+    #cta {
+      position:absolute;
+      top:65%;
+      left:14%;
+      opacity: 0.75;
+
+    }
+  }
+
+  .box{
+      width:400px;
+  }
+
