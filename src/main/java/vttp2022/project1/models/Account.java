@@ -1,10 +1,12 @@
 package vttp2022.project1.models;
 
-public class User {
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+public class Account {
 
     private String username;
     private String password;
-    private String user_role;
+    private String role;
     private String customer_name;
     private String customer_address;
     private String customer_number;
@@ -21,11 +23,11 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getUser_role() {
-        return user_role;
+    public String getRole() {
+        return role;
     }
-    public void setUser_role(String user_role) {
-        this.user_role = user_role;
+    public void setRole(String role) {
+        this.role = role;
     }
     public String getCustomer_name() {
         return customer_name;
@@ -45,5 +47,15 @@ public class User {
     public void setCustomer_number(String customer_number) {
         this.customer_number = customer_number;
     }
+
+    public static Account convert(SqlRowSet rs){
+        Account account = new Account();
+        account.setRole(rs.getString("role"));
+        account.setUsername(rs.getString("username"));
+        account.setPassword(rs.getString("password"));
+        return account;
+    }
+
+
     
 }

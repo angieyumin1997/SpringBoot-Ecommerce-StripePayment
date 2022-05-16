@@ -24,10 +24,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Shop</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Register</a>
+          <a class="nav-link" href="/shop">Shop</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Login</a>
@@ -43,25 +40,11 @@
 <h1 class="display-5 text-dark font-weight-bold text-center ">Our New Collections</h1>
 
 <div class="d-flex bd-highlight justify-content-center row">
-    <div class="bd-highlight col-12 col-lg-4 box">
-        <div><img src="/images/item1.webp" width="375" height="575" alt=""></div>
-        <div><p class="lead">7/8 Yonge Pocket Leggings</p></div>
-        <div><p class="lead">$62.00</p></div>
-    </div>
-    <div class="bd-highlight col-12 col-lg-4 box">
-        <div><img src="/images/item2.webp" width="375" height="575"  alt=""></div>
-        <div><p class="lead">Mara Midline Bra</p></div>
-        <div><p class="lead">$62.00</p></div>
-    </div>
-    <div class="bd-highlight col-12 col-lg-4 box">
-        <div><img src="/images/item3.webp" width="375" height="575"  alt=""></div>
-        <div><p class="lead">Willow Crop Tank</p></div>
-        <div><p class="lead">$42.00</p></div>
-    </div>
-    <div class="bd-highlights col-12 col-lg-4 box">
-        <div><img src="/images/item4.webp" width="375" height="575"  alt=""></div>
-        <div><p class="lead">Yonge 4" Shorts II</p></div>
-        <div><p class="lead">$66.00</p></div>
+
+    <div class="bd-highlight col-12 col-lg-4 box" data-th-each="p: ${products}">
+        <div><img data-th-src="|/admin/product/image/${p.prod_id}|" width="375" height="575" alt=""></div>
+        <div><p class="lead" data-th-text ="${p.name}"></p></div>
+        <div><p class="lead" data-th-text ="'$' + ${p.price}"></p></div>
     </div>
   </div>
 <!--end products  -->

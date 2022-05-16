@@ -1,5 +1,6 @@
 package vttp2022.project1.repository;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,6 +84,36 @@ public class ProductRepository implements Queries{
         product.getProd_id());
 
         return count == 1;
+    }
+
+    public List <Product> selectProductImage() throws SQLException{
+        List <Product> products = new LinkedList<>();
+        return template.query(
+            SQL_SELECT_ALL_IMAGES,
+            (ResultSet rs)->{
+                while(rs.next()){
+                final Product product = Product.populateImage(rs);
+                products.add(product);}
+                return products;
+            }
+            
+        );
+         
+    }
+
+    public Product selectOneProductImage(Integer prod_id) throws SQLException{
+ 
+        return template.query(
+            SQL_SELECT_AN_IMAGE,
+            (ResultSet rs)->{
+                rs.next();
+                final Product product = Product.populateImage(rs);
+          
+                return product;
+            },prod_id
+            
+        );
+         
     }
 
 

@@ -38,4 +38,15 @@ public interface Queries {
     public static final String SQL_UPDATE_PRODUCT=
     "update products set name=?,description=?,price=?,category_id=?,image=? where prod_id=?";
 
+    public static final String SQL_SELECT_ALL_IMAGES=
+    "select prod_id,name,description,price,category_id,image from products";
+
+    public static final String SQL_SELECT_AN_IMAGE=
+    "select prod_id,name,description,price,category_id,image from products where prod_id=?";
+
+    public static final String SQL_INSERT_USER=
+    "insert into users(username,password,customer_name,customer_address,customer_number) value (?,?,?,?,?)";
+
+    public static final String SQL_AUTHETICATE_USER=
+    "select username,password,role from users where username=?";
 }

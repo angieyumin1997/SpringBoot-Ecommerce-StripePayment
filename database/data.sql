@@ -1,7 +1,7 @@
 use ecommerce;
 
-insert into users (username,password,user_role,customer_name,customer_address,customer_number)
-    values ('yumin','yumin','customer','yumin','singapore','1234567');
+insert into users (username,password,role,customer_name,customer_address,customer_number)
+    values ('yumin','yumin','ROLE_USER','yumin','singapore','1234567');
 
 insert into category(category_id,category_name,description)
     value (1,'Bra','Sports bra');

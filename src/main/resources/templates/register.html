@@ -27,22 +27,7 @@
                 <a class="nav-link" href="#">Shop</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Category</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Product</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-user"></i></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <a class="nav-link" href="#">Login</a>
               </li>
             </ul>
           </div>
@@ -50,60 +35,50 @@
       </nav>
       <!-- End Navbar -->
 
-
-      <!-- Category -->
-      <form method="POST" action = "/admin/product/updateproduct" enctype="multipart/form-data">
+       <!-- Register form -->
+       <form method="POST" action = "/register/success">
         <div class="container">
             <div class="row mt-5">
                 <div class="col">
-                    <label for="name" class="form-label">Product ID</label>
-                    <input type="text" class="form-control" name="id" id="id" th:value="${product.prod_id}" readonly>
+                    <label for="name" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" required>
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <label for="name" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" name="name" id="name" th:value="${product.name}" required>
+                    <label for="name" class="form-label">Password</label>
+                    <input type="text" class="form-control" name="password" id="password" required>
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <label for="email" class="form-label">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" th:value="${product.description}" required>
+                    <label for="email" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" required>
                 </div>
             </div>
-            <div class="row mt-5">
-              <div class="col">
-                  <label for="email" class="form-label">Price</label>
-                  <input type="text" class="form-control" name="price" id="price" th:value="${product.price}" required>
-              </div>
-          </div>
             <div class="row mt-5">
                 <div class="col">
-                    <label for="email" class="form-label">Category</label>
-                    <select class="form-select" name="category" id="category" >
-                        <option th:each="category : ${categories}" th:value="${category.category_name}" th:utext="${category.category_name}" th:selected="(${category.category_name} == *{product.category})" ></option>
-                    </select>
+                    <label for="email" class="form-label">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" required>
                 </div>
             </div>
             <div class="row mt-5">
-              <div class="col">
-                  <label for="image" class="form-label">Image</label>
-                  <input type="file" class="form-control" name="image" id="image" placeholder="" accept="image/*" required>
-              </div>
-          </div>
+                <div class="col">
+                    <label for="email" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" name="number" id="number" required>
+                </div>
+            </div>
             <div class="row mt-5">
                 <div class="col">
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                        <button type="submit" class="btn btn-primary mb-3">Register!</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-      <!-- End category -->
-
+      <!-- End register form -->
 
 
 <!-- Footer -->

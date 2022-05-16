@@ -47,6 +47,16 @@ public class ProductService {
         productRepo.updateProduct(product);
     }
 
+    public List<Product> getAllProductImages( ) throws SQLException{
+        return productRepo.selectProductImage();
+    }
+
+    public Product getOneProductImage(Integer prod_id) throws SQLException{
+        return productRepo.selectOneProductImage(prod_id);
+    }
+
+    
+
 
 
 

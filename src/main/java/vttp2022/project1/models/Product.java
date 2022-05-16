@@ -1,5 +1,6 @@
 package vttp2022.project1.models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -66,6 +67,18 @@ public class Product {
         product.setCategory_id(rs.getInt("category_id"));
         product.setProd_id(rs.getInt("prod_id"));
 
+        return product;
+    }
+
+    public static Product populateImage(ResultSet rs) throws SQLException{
+        final Product product = new Product();
+
+        product.setImage(rs.getBytes("image"));
+        product.setName(rs.getString("name"));
+        product.setDescription(rs.getString("description"));
+        product.setPrice(rs.getDouble("price"));
+        product.setCategory_id(rs.getInt("category_id"));
+        product.setProd_id(rs.getInt("prod_id"));
         return product;
     }
 

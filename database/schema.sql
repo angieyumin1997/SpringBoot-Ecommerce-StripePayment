@@ -7,7 +7,7 @@ use ecommerce;
 create table users(
     username varchar(128) not null,
     password varchar(256) not null,
-    user_role varchar(128) not null,
+    role enum('ROLE_USER','ROLE_ADMIN') default 'ROLE_USER',
     customer_name varchar(128) not null,
     customer_address varchar(128) not null,
     customer_number varchar(128) not null,
