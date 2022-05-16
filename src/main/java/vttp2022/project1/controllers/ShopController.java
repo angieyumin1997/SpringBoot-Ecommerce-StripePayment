@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,18 @@ public class ShopController {
         mvc.setViewName("shop");
         List<Product> products = productSvc.getAllProductImages();
         mvc.addObject("products",products);
+        
+        return mvc;
+   
+    }
+
+    @GetMapping(path="/shop/product/{prod_id}")
+    public ModelAndView Product(@PathVariable(name="prod_id") Integer prod_id) throws SQLException{
+        ModelAndView mvc = new ModelAndView();
+        mvc.setViewName("shopproduct");
+        Product product = productSvc.getOneProductImage(prod_id);
+        mvc.addObject("product",product);
+        System.out.println(">>>>>> prod_id: " +product.getProd_id());
         
         return mvc;
    

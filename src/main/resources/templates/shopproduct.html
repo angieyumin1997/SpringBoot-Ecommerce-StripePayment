@@ -37,18 +37,17 @@
 
 
 <!-- Products -->
-<h1 class="display-5 text-dark font-weight-bold text-center ">Our New Collections</h1>
-
-<div class="d-flex bd-highlight justify-content-center row">
-
-    <div class="bd-highlight col-12 col-lg-4 box" data-th-each="p: ${products}">
-        <div>
-          <a th:href="|/shop/product/${p.prod_id}|"><img data-th-src="|shop/image/${p.prod_id}|" width="375" height="575" alt=""></a>
-        </div>
-        <div><p class="lead" data-th-text ="${p.name}"></p></div>
-        <div><p class="lead" data-th-text ="'$' + ${p.price}"></p></div>
+<div class="d-flex bd-highlight justify-content-center row my-5">
+    <div class="bd-highlight col-12 col-lg-4 box mx-2">
+      <img data-th-src="|/shop/image/${product.prod_id}|" width="375" height="575" alt="">
     </div>
-  </div>
+    <div class="bd-highlight col-12 col-lg-4 box d-flex flex-column justify-content-center mx-2" >
+        <div><p class="display-6" data-th-text ="${product.name}"></p></div>
+        <div><p class="lead" data-th-text ="${product.description}"></p></div>
+        <div><p class="lead" data-th-text ="'$' + ${product.price}"></p></div>
+        <div><button type="button" class="btn btn-primary btn-lg">Add to cart</button></div>
+    </div>
+</div>
 <!--end products  -->
 
 <!-- Footer -->

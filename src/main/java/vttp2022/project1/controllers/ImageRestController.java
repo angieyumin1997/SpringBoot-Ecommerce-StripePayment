@@ -13,7 +13,7 @@ import vttp2022.project1.models.Product;
 import vttp2022.project1.service.ProductService;
 
 @RestController
-@RequestMapping(path="/admin/product/image")
+@RequestMapping(path="/shop/image")
 public class ImageRestController {
     
     @Autowired

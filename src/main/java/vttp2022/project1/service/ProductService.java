@@ -55,10 +55,4 @@ public class ProductService {
         return productRepo.selectOneProductImage(prod_id);
     }
 
-    
-
-
-
-
-
 }
