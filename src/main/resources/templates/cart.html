@@ -1,16 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <title>Yonge Sports</title>
+     <style>
+      body {
+        overflow-x: hidden;
+      }
+      </style>
 </head>
-<body>
-    Item has been added to Cart.
+    <body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">YONGE SPORTS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <div sec:authorize="!isAuthenticated()">
+            <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+            </li>
+        </div>
+            <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+            <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+            </li>
+            </div>
+            <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+            <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa-solid fa-user"></i></a>
+            </li>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+            <li class="nav-item">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Log Out">
+            </form>
+            </li>
+        </div>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    <!-- End Navbar -->
 
-    <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
-        hi [[${#httpServletRequest.remoteUser}]]
-      </div>
-</body>
-</html>
+    <!-- cartitems table -->
+        <h3 data-th-if="${#lists.isEmpty(cartItems)}" class="mt-3vh">
+            There is no item in your cart! Try adding some
+        </h3>
+        <table data-th-unless="${#lists.isEmpty(cartItems)}"  class="container mt-3vh table ">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>SubTotal</th>
+                    <th>Action</th>
+          
+                </tr>
+            </thead>
+            <tbody>
+            <span data-th-each="c: ${cartItems}">
+                <form method="GET" th:action ="|/cart/update/${c.cart_id}|">
+                    <tr>
+                        <td><span data-th-text="${c.prod_name}"></span></td>
+                        <td><span data-th-text="${c.price}"></span></td>
+                        <td><span data-th-text="${c.size}"></span></td>
+                        <td>
+                            <div class="form-outline">
+                                <input step="1" type="number" id="quantity" name ="quantity" th:value="${c.quantity}"class="form-control" min="1" value="1" required />
+                            </div>
+                        </td>
+                        <td><span data-th-text="${c.price * c.quantity}"></span></td>
+                        <td>
+                            <input type="submit" value ="Update" class="btn btn-primary">
+                            <a th:href="|/cart/remove/${c.cart_id}|"><button type="button" class="btn btn-primary">Remove</button></a>
+                        </td>
+                    </tr>
+                </form>
+            </span>
+            </tbody>
+    
+        </table>
+
+          <!-- end cartitems table -->
+
+    <!-- Footer -->
+    <footer class="row">
+        <section class="col-12">
+        <div class="bg-dark p-3 ">
+        <p class="text-light">
+            (c) Yonge Sports 2022
+        </p>
+        </div>
+        </section>
+    </footer>
+    <!-- end footer -->
+    
+    
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+ </html>

@@ -1,6 +1,7 @@
 package vttp2022.project1.controllers;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,9 +111,18 @@ public class ShopController {
     }
 
     @GetMapping(path="/cart")
-    public ModelAndView cart(){
+    public ModelAndView cart(Cart cart){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        cart.setUsername(username);
+
+        List <Cart> cartItems = new LinkedList<>();
+        cartItems = cartSvc.getAllCartItems(cart);
+
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("cart");
+        mvc.addObject("cartItems",cartItems);
+        
         return mvc;
     }
 
@@ -120,7 +130,7 @@ public class ShopController {
     @GetMapping(path="/addToCart")
     public ModelAndView addToCart(
         @RequestParam (name="size") String size, 
-        @RequestParam (name="quantity") Integer quantity,
+        @RequestParam (name="quantity") Double quantity,
         @RequestParam (name="prod_id") Integer prod_id) throws SQLException{
 
             Cart cart = new Cart();
@@ -129,7 +139,7 @@ public class ShopController {
             String username = userDetails.getUsername();
 
             Product product = productSvc.selectProduct(prod_id);
-            Double price = (product.getPrice()) * quantity;
+            Double price = product.getPrice();
             String prod_name = product.getName();
 
             cart.setSize(size);
@@ -142,12 +152,49 @@ public class ShopController {
             cartSvc.addNewCartItem(cart);
 
             ModelAndView mvc = new ModelAndView();
-            mvc.setViewName("cart");
+            mvc.setViewName("addtocart");
             mvc.addObject("cart",cart);
         
             return mvc;
 
     }
 
+    @GetMapping(path="cart/remove/{cart_id}")
+    public ModelAndView deleteCartItem(@PathVariable(name="cart_id") Integer cart_id, Cart cart) throws SQLException{
+
+        cartSvc.removeCartItem(cart_id);
+
+        ModelAndView mvc = new ModelAndView();
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        cart.setUsername(username);
+        List <Cart> cartItems = new LinkedList<>();
+        cartItems = cartSvc.getAllCartItems(cart);
+        mvc.addObject("cartItems",cartItems);
+        mvc.setViewName("cart");
+        
+        return mvc;
+    }
+
+    @GetMapping(path="cart/update/{cart_id}")
+    public ModelAndView updateCartItem(@PathVariable(name="cart_id") Integer cart_id, Cart cart,@RequestParam (name="quantity") Double quantity) throws SQLException{
+
+        cart.setCart_id(cart_id);
+        cart.setQuantity(quantity);
+        cartSvc.updateCartItem(cart);
+
+        ModelAndView mvc = new ModelAndView();
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        cart.setUsername(username);
+        List <Cart> cartItems = new LinkedList<>();
+        cartItems = cartSvc.getAllCartItems(cart);
+        mvc.addObject("cartItems",cartItems);
+        mvc.setViewName("cart");
+        
+        return mvc;
+    }
 
 }

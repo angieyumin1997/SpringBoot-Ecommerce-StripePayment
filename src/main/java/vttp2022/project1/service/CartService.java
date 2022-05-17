@@ -1,5 +1,7 @@
 package vttp2022.project1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,18 @@ public class CartService {
 
     public void addNewCartItem(Cart cart) {
         cartRepo.insertCartItem(cart);
+    }
+
+    public List<Cart> getAllCartItems(Cart cart){
+        return cartRepo.selectAllCartItems(cart);
+    }
+
+    public void removeCartItem(int cart_id) {
+        cartRepo.deleteCartItem(cart_id);
+    }
+
+    public void updateCartItem(Cart cart) {
+        cartRepo.updateCartItem(cart);
     }
 
 

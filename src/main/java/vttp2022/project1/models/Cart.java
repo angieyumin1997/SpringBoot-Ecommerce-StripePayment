@@ -1,11 +1,13 @@
 package vttp2022.project1.models;
 
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 public class Cart {
 
     private Integer cart_id;
     private String payment_status;
     private Double price;
-    private Integer quantity;
+    private Double quantity;
     private String size;
     private Integer prod_id;
     private String username;
@@ -30,10 +32,10 @@ public class Cart {
     public void setPrice(Double price) {
         this.price = price;
     }
-    public Integer getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
     public String getSize() {
@@ -66,4 +68,17 @@ public class Cart {
     public void setProd_name(String prod_name) {
         this.prod_name = prod_name;
     }
+
+    public static Cart convert(SqlRowSet rs){
+        Cart cart = new Cart();
+        cart.setPrice(rs.getDouble("price"));
+        cart.setQuantity(rs.getDouble("quantity"));
+        cart.setProd_name(rs.getString("prod_name"));
+        cart.setSize(rs.getString("size"));
+        cart.setCart_id(rs.getInt("cart_id"));
+        return cart;
+    }
+
+
+
 }

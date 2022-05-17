@@ -52,4 +52,13 @@ public interface Queries {
 
     public static final String SQL_INSERT_CART=
     "insert into cart(price,quantity,size,prod_id,username,prod_name) value (?,?,?,?,?,?)"; 
+
+    public static final String SQL_SELECT_ALL_CART_ITEMS=
+    "select cart_id,prod_name,size,quantity,price from cart where username=? and payment_status='np'";
+
+    public static final String SQL_REMOVE_CART_ITEM=
+    "delete from cart where cart_id=?";
+
+    public static final String SQL_UPDATE_CART_ITEM=
+    "update cart set quantity=? where cart_id=?";
 }

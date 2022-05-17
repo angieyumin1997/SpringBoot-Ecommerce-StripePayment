@@ -48,8 +48,6 @@ public class ShopService implements UserDetailsService{
         System.out.println(">>>>>> userDetails: " +userDetails);
 
         return userDetails;
-
-
     }
     
 }
