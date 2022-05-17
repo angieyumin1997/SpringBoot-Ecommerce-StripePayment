@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vttp2022.project1.models.Product;
 import vttp2022.project1.models.Account;
+import vttp2022.project1.models.Cart;
+import vttp2022.project1.service.CartService;
 import vttp2022.project1.service.ProductService;
 import vttp2022.project1.service.ShopService;
 
@@ -30,6 +35,9 @@ public class ShopController {
 
     @Autowired
     private ShopService shopSvc;
+
+    @Autowired
+    private CartService cartSvc;
     
      
     @GetMapping(path="/shop")
@@ -71,7 +79,7 @@ public class ShopController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping(path="/register/success")
-    public ModelAndView RegisterSuccess(@RequestBody MultiValueMap<String, String> form){
+    public ModelAndView registerSuccess(@RequestBody MultiValueMap<String, String> form){
         String username = form.getFirst("username");
         String password = form.getFirst("password");
         String bycrptPassword = passwordEncoder.encode(password);
@@ -95,20 +103,51 @@ public class ShopController {
 
     
     @GetMapping(path="/login")
-    public ModelAndView Login(){
+    public ModelAndView login(){
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("login");
         return mvc;
     }
 
     @GetMapping(path="/cart")
-    public ModelAndView Cart(){
+    public ModelAndView cart(){
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("cart");
         return mvc;
     }
 
 
+    @GetMapping(path="/addToCart")
+    public ModelAndView addToCart(
+        @RequestParam (name="size") String size, 
+        @RequestParam (name="quantity") Integer quantity,
+        @RequestParam (name="prod_id") Integer prod_id) throws SQLException{
+
+            Cart cart = new Cart();
+    
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = userDetails.getUsername();
+
+            Product product = productSvc.selectProduct(prod_id);
+            Double price = (product.getPrice()) * quantity;
+            String prod_name = product.getName();
+
+            cart.setSize(size);
+            cart.setQuantity(quantity);
+            cart.setUsername(username);
+            cart.setProd_id(prod_id);
+            cart.setPrice(price);
+            cart.setProd_name(prod_name);
+
+            cartSvc.addNewCartItem(cart);
+
+            ModelAndView mvc = new ModelAndView();
+            mvc.setViewName("cart");
+            mvc.addObject("cart",cart);
+        
+            return mvc;
+
+    }
 
 
 }

@@ -44,7 +44,7 @@ create table orders(
     shipping_address varchar(128) not null,
     total_amount double not null,
     order_date date not null,
-    size enum('xs','s','m','l','xl'),
+    size enum('xs','s','m','l','xl') not null,
 
     username varchar(128) not null,
 
@@ -57,10 +57,10 @@ create table orders(
 
 create table cart(
     cart_id int auto_increment not null,
-    payment_status enum('p','np') default 'np',
+    payment_status enum('p','np') default 'np' not null,
     price double not null,
-    quantity double not null,
-    size enum('xs','s','m','l','xl'),
+    quantity int not null,
+    size enum('xs','s','m','l','xl') not null,
 
     prod_id int not null,
     username varchar(128) not null,

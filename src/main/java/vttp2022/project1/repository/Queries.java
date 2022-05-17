@@ -49,4 +49,7 @@ public interface Queries {
 
     public static final String SQL_AUTHETICATE_USER=
     "select username,password,role from users where username=?";
+
+    public static final String SQL_INSERT_CART=
+    "insert into cart(price,quantity,size,prod_id,username,prod_name) value (?,?,?,?,?,?)"; 
 }
