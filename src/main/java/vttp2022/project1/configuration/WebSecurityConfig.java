@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
 		
 		http
-            .authorizeRequests().antMatchers("/cart").access("hasAnyRole('ROLE_ADMIN','ROLE_USER')");
+            .authorizeRequests().antMatchers("/cart","/addToCart","/myaccount").access("hasAnyRole('ROLE_ADMIN','ROLE_USER')");
 
 
 		http.csrf().disable();

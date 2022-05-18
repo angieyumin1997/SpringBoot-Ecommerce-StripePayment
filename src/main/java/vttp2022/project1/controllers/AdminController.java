@@ -32,12 +32,6 @@ public class AdminController {
 
     @Autowired
     private ProductService productSvc;
-    
-    @GetMapping
-    public String AdminHome(){
-
-        return "adminhome";
-    }
 
     @GetMapping(path="/category")
     public ModelAndView getAdminCategory(){
@@ -220,12 +214,10 @@ public class AdminController {
         product.setPrice(Double.parseDouble(price));
         product.setProd_id(Integer.parseInt(id));
 
-
         Integer categoryID = productSvc.selectCategoryID(category);
         product.setCategory_id(categoryID);
 
         productSvc.updateProduct(product);
-
 
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("adminproduct");

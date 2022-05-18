@@ -44,7 +44,6 @@ create table orders(
     shipping_address varchar(128) not null,
     total_amount double not null,
     order_date date not null,
-    size enum('xs','s','m','l','xl') not null,
 
     username varchar(128) not null,
 

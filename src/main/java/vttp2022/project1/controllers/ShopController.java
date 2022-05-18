@@ -130,7 +130,7 @@ public class ShopController {
     @GetMapping(path="/addToCart")
     public ModelAndView addToCart(
         @RequestParam (name="size") String size, 
-        @RequestParam (name="quantity") Double quantity,
+        @RequestParam (name="quantity") Integer quantity,
         @RequestParam (name="prod_id") Integer prod_id) throws SQLException{
 
             Cart cart = new Cart();
@@ -178,7 +178,7 @@ public class ShopController {
     }
 
     @GetMapping(path="cart/update/{cart_id}")
-    public ModelAndView updateCartItem(@PathVariable(name="cart_id") Integer cart_id, Cart cart,@RequestParam (name="quantity") Double quantity) throws SQLException{
+    public ModelAndView updateCartItem(@PathVariable(name="cart_id") Integer cart_id, Cart cart,@RequestParam (name="quantity") Integer quantity) throws SQLException{
 
         cart.setCart_id(cart_id);
         cart.setQuantity(quantity);
@@ -194,6 +194,14 @@ public class ShopController {
         mvc.addObject("cartItems",cartItems);
         mvc.setViewName("cart");
         
+        return mvc;
+    }
+
+        
+    @GetMapping(path="/myaccount")
+    public ModelAndView myaMcount(){
+        ModelAndView mvc = new ModelAndView();
+        mvc.setViewName("myaccount");
         return mvc;
     }
 

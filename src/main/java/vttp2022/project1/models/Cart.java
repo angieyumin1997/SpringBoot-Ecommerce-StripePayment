@@ -7,7 +7,7 @@ public class Cart {
     private Integer cart_id;
     private String payment_status;
     private Double price;
-    private Double quantity;
+    private Integer quantity;
     private String size;
     private Integer prod_id;
     private String username;
@@ -32,10 +32,10 @@ public class Cart {
     public void setPrice(Double price) {
         this.price = price;
     }
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
     public String getSize() {
@@ -72,7 +72,7 @@ public class Cart {
     public static Cart convert(SqlRowSet rs){
         Cart cart = new Cart();
         cart.setPrice(rs.getDouble("price"));
-        cart.setQuantity(rs.getDouble("quantity"));
+        cart.setQuantity(rs.getInt("quantity"));
         cart.setProd_name(rs.getString("prod_name"));
         cart.setSize(rs.getString("size"));
         cart.setCart_id(rs.getInt("cart_id"));
