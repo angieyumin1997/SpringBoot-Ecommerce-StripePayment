@@ -64,4 +64,10 @@ public interface Queries {
 
     public static final String SQL_GRAND_TOTAL=
     "select price * quantity as subtotal from cart where username=? and payment_status='np'";
+
+    public static final String SQL_INSERT_ORDER=
+    "insert into orders(shipping_address,total_amount,order_date,username) value (?,?,?,?)";
+
+    public static final String SQL_UPDATE_ORDER_CART_ITEMS=
+    "update cart set payment_status='p',order_id=? where username=?";
 }

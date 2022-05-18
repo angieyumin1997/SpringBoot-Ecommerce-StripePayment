@@ -1,5 +1,6 @@
 package vttp2022.project1.controllers;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import vttp2022.project1.models.Product;
 import vttp2022.project1.models.Account;
 import vttp2022.project1.models.Cart;
+import vttp2022.project1.models.Order;
 import vttp2022.project1.service.CartService;
+import vttp2022.project1.service.OrderService;
 import vttp2022.project1.service.ProductService;
 import vttp2022.project1.service.ShopService;
 
@@ -39,6 +42,9 @@ public class ShopController {
 
     @Autowired
     private CartService cartSvc;
+
+    @Autowired
+    private OrderService orderSvc;
     
      
     @GetMapping(path="/shop")
@@ -217,8 +223,6 @@ public class ShopController {
     @GetMapping(path="/checkout")
     public ModelAndView checkOut(Cart cart){
 
-
-
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
         cart.setUsername(username);
@@ -233,6 +237,33 @@ public class ShopController {
         mvc.addObject("grandTotal",grandTotal);
 
         mvc.setViewName("checkout");
+        return mvc;
+    }
+
+    @PostMapping(path="/checkout/success")
+    public ModelAndView checkoutSuccess(@RequestBody MultiValueMap<String, String> form, Cart cart){
+        String shipping_address = form.getFirst("address");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        cart.setUsername(username);
+
+        long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);  
+
+        Double grandTotal = cartSvc.grandTotal(cart);
+
+        Order order = new Order();
+        order.setShipping_address(shipping_address);
+        order.setUsername(username);
+        order.setOrder_date(date);
+        order.setTotal_amount(grandTotal);
+        Integer order_id = orderSvc.addNewOrder(order);
+
+        cart.setOrder_id(order_id);
+        orderSvc.updateOrderCartItem(cart);
+
+        ModelAndView mvc = new ModelAndView();
+        mvc.setViewName("checkoutsuccess");
         return mvc;
     }
 
