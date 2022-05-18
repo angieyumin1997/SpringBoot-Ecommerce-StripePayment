@@ -65,6 +65,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           <!-- End Navbar -->
 
     <!-- cartitems table -->
+    <h1 class="display-5 text-dark font-weight-bold text-center ">Order Confirmation</h1>
         <h3 data-th-if="${#lists.isEmpty(cartItems)}" class="mt-3vh">
             There is no item in your cart! Try adding some
         </h3>
@@ -76,29 +77,18 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     <th>Size</th>
                     <th>Quantity</th>
                     <th>SubTotal</th>
-                    <th>Action</th>
           
                 </tr>
             </thead>
             <tbody>
             <span data-th-each="c: ${cartItems}">
-                <form method="GET" th:action ="|/cart/update/${c.cart_id}|">
                     <tr>
                         <td><span data-th-text="${c.prod_name}"></span></td>
                         <td><span data-th-text="${c.price}"></span></td>
                         <td><span data-th-text="${c.size}"></span></td>
-                        <td>
-                            <div class="form-outline">
-                                <input step="1" type="number" id="quantity" name ="quantity" th:value="${c.quantity}"class="form-control" min="1" value="1" required />
-                            </div>
-                        </td>
+                        <td><span data-th-text="${c.quantity}"></span></td>
                         <td><span data-th-text="${c.price * c.quantity}"></span></td>
-                        <td>
-                            <input type="submit" value ="Update" class="btn btn-primary">
-                            <a th:href="|/cart/remove/${c.cart_id}|"><button type="button" class="btn btn-primary">Remove</button></a>
-                        </td>
                     </tr>
-                </form>
             </span>
                 <tr>
                     <th scope="row">Grand Total: </th>
@@ -108,19 +98,31 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     </td>
                     
                 </tr>
-                <tr>
-                    <th scope="row"></th>
-                    <td colspan="3"></td>
-                    <td colspan="2"></span><a href="/checkout"><button type="button" class="btn btn-primary">Checkout</button></td>
-
-                </tr>
-
-            
             </tbody>
         </table>
-        
-
           <!-- end cartitems table -->
+
+          <!-- order form -->
+          <h1 class="display-5 text-dark font-weight-bold text-center ">Customer Details</h1>
+          <form method="POST" action = "/checkout/success">
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col">
+                        <label for="name" class="form-label">Shipping Address</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
+                    </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    
+          <!-- end order form -->
 
     <!-- Footer -->
     <footer class="row">

@@ -8,7 +8,7 @@ public class Order {
     private String shipping_address;
     private Double total_amount;
     private Date order_date;
-    private String size;
+
     private String username;
     
     public Integer getOrder_id() {
@@ -35,12 +35,7 @@ public class Order {
     public void setOrder_date(Date order_date) {
         this.order_date = order_date;
     }
-    public String getSize() {
-        return size;
-    }
-    public void setSize(String size) {
-        this.size = size;
-    }
+    
     public String getUsername() {
         return username;
     }

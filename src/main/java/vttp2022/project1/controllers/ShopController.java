@@ -122,6 +122,9 @@ public class ShopController {
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("cart");
         mvc.addObject("cartItems",cartItems);
+
+        Double grandTotal = cartSvc.grandTotal(cart);
+        mvc.addObject("grandTotal",grandTotal);
         
         return mvc;
     }
@@ -173,6 +176,9 @@ public class ShopController {
         cartItems = cartSvc.getAllCartItems(cart);
         mvc.addObject("cartItems",cartItems);
         mvc.setViewName("cart");
+
+        Double grandTotal = cartSvc.grandTotal(cart);
+        mvc.addObject("grandTotal",grandTotal);
         
         return mvc;
     }
@@ -193,15 +199,40 @@ public class ShopController {
         cartItems = cartSvc.getAllCartItems(cart);
         mvc.addObject("cartItems",cartItems);
         mvc.setViewName("cart");
+
+        Double grandTotal = cartSvc.grandTotal(cart);
+        mvc.addObject("grandTotal",grandTotal);
         
         return mvc;
     }
 
         
     @GetMapping(path="/myaccount")
-    public ModelAndView myaMcount(){
+    public ModelAndView myaccount(){
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("myaccount");
+        return mvc;
+    }
+
+    @GetMapping(path="/checkout")
+    public ModelAndView checkOut(Cart cart){
+
+
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        cart.setUsername(username);
+
+        List <Cart> cartItems = new LinkedList<>();
+        cartItems = cartSvc.getAllCartItems(cart);
+
+        ModelAndView mvc = new ModelAndView();
+        mvc.addObject("cartItems",cartItems);
+
+        Double grandTotal = cartSvc.grandTotal(cart);
+        mvc.addObject("grandTotal",grandTotal);
+
+        mvc.setViewName("checkout");
         return mvc;
     }
 

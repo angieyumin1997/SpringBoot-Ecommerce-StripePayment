@@ -29,5 +29,10 @@ public class CartService {
         cartRepo.updateCartItem(cart);
     }
 
+    public Double grandTotal(Cart cart){
+        Double grandTotal = cartRepo.grandTotal(cart);
+        return grandTotal;
+    }
+
 
 }

@@ -61,4 +61,7 @@ public interface Queries {
 
     public static final String SQL_UPDATE_CART_ITEM=
     "update cart set quantity=? where cart_id=?";
+
+    public static final String SQL_GRAND_TOTAL=
+    "select price * quantity as subtotal from cart where username=? and payment_status='np'";
 }

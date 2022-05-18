@@ -56,4 +56,15 @@ public class CartRepository implements Queries{
         return count == 1;
     }
 
+    public Double grandTotal(Cart cart) {
+        Double grandTotal = 0.0;
+        SqlRowSet rs = template.queryForRowSet(SQL_GRAND_TOTAL, cart.getUsername());
+        while(rs.next()){
+            Double subTotal = rs.getDouble("subtotal");
+            grandTotal += subTotal;
+        }
+
+        return grandTotal;
+    }
+
 }
