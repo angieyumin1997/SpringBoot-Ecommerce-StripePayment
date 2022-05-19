@@ -220,6 +220,7 @@ public class ShopController {
         return mvc;
     }
 
+
     @GetMapping(path="/checkout")
     public ModelAndView checkOut(Cart cart){
 
@@ -235,8 +236,11 @@ public class ShopController {
 
         Double grandTotal = cartSvc.grandTotal(cart);
         mvc.addObject("grandTotal",grandTotal);
+        mvc.addObject("cartId", cart.getCart_id());
 
         mvc.setViewName("checkout");
+
+    
         return mvc;
     }
 
@@ -266,5 +270,18 @@ public class ShopController {
         mvc.setViewName("checkoutsuccess");
         return mvc;
     }
+    //payment_intent, payment_intent_client_secret
+    @GetMapping(path="/checkout/success")
+    public ModelAndView checkoutallgood(Cart cart,
+    @RequestParam String payment_intent, @RequestParam String payment_intent_client_secret){
+        ModelAndView mvc = new ModelAndView();
+        mvc.setViewName("checkoutsuccess");
+        System.out.println(">>>>>> payment_intent_client_secret: " +payment_intent_client_secret);
+        System.out.println(">>>>>> payment_intent: " +payment_intent);
+
+        return mvc;
+    }
+
+
 
 }

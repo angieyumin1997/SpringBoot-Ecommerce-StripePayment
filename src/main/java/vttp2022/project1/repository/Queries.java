@@ -69,5 +69,5 @@ public interface Queries {
     "insert into orders(shipping_address,total_amount,order_date,username) value (?,?,?,?)";
 
     public static final String SQL_UPDATE_ORDER_CART_ITEMS=
-    "update cart set payment_status='p',order_id=? where username=?";
+    "update cart set payment_status='p',order_id=? where username=? and payment_status='np'";
 }
