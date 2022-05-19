@@ -41,7 +41,7 @@
   }
   
   /* Buttons and links */
-  button {
+  .block {
     background: #5469d4;
     font-family: Arial, sans-serif;
     color: #ffffff;

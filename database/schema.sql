@@ -41,9 +41,10 @@ create table products(
 
 create table orders(
     order_id int auto_increment not null,
-    shipping_address varchar(128) not null,
     total_amount double not null,
     order_date date not null,
+    payment_intent varchar(1000) not null,
+    payment_intent_client_secret varchar(1000) not null,
 
     username varchar(128) not null,
 
