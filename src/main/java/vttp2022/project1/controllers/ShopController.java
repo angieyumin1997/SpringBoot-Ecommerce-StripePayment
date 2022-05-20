@@ -2,8 +2,19 @@ package vttp2022.project1.controllers;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentIntentSearchResult;
+import com.stripe.param.PaymentIntentSearchParams;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -221,7 +232,7 @@ public class ShopController {
     }
 
 
-    @GetMapping(path="/checkout")
+    @PostMapping(path="/checkout")
     public ModelAndView checkOut(Cart cart){
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -244,44 +255,45 @@ public class ShopController {
         return mvc;
     }
 
-    @PostMapping(path="/checkout/success")
-    public ModelAndView checkoutSuccess(@RequestBody MultiValueMap<String, String> form, Cart cart){
-        String shipping_address = form.getFirst("address");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        cart.setUsername(username);
-
-        long millis=System.currentTimeMillis();  
-        Date date=new Date(millis);  
-
-        Double grandTotal = cartSvc.grandTotal(cart);
-
-        Order order = new Order();
-        order.setShipping_address(shipping_address);
-        order.setUsername(username);
-        order.setOrder_date(date);
-        order.setTotal_amount(grandTotal);
-        Integer order_id = orderSvc.addNewOrder(order);
-
-        cart.setOrder_id(order_id);
-        orderSvc.updateOrderCartItem(cart);
-
-        ModelAndView mvc = new ModelAndView();
-        mvc.setViewName("checkoutsuccess");
-        return mvc;
-    }
     //payment_intent, payment_intent_client_secret
     @GetMapping(path="/checkout/success")
     public ModelAndView checkoutallgood(Cart cart,
-    @RequestParam String payment_intent, @RequestParam String payment_intent_client_secret){
+    @RequestParam String payment_intent, @RequestParam String payment_intent_client_secret) throws StripeException{
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("checkoutsuccess");
         System.out.println(">>>>>> payment_intent_client_secret: " +payment_intent_client_secret);
         System.out.println(">>>>>> payment_intent: " +payment_intent);
 
+        Stripe.apiKey = "sk_test_51L0iLFGzWeQzLKycRS8XGb4NYoyr8UgcEOnobrdpktcSRAT65FK5qNOByaw1737AAHrQZ2bhQPAfSuEhVPsaWAIb00VKeK9iAn";
+
+        PaymentIntent paymentIntent =PaymentIntent.retrieve(
+            payment_intent);
+
+
+        Map<String, String> orderId = new HashMap<>();
+        orderId = paymentIntent.getMetadata();
+        System.out.println(">>>>>> : orderId" +orderId);
+        Order order =new Order();
+        order.setOrder_id(Integer.parseInt(orderId.get("order_id")));
+        order.setPayment_intent(payment_intent);
+        order.setPayment_intent_client_secret(payment_intent_client_secret);
+        orderSvc.updateOrderPayment(order);
+
+        String cartItemId = paymentIntent.getDescription();
+        System.out.println(">>>>>> : cartItemId" +cartItemId);
+
+        List<String> cartItemIdList = new ArrayList<String>(Arrays.asList(cartItemId.split(", ")));
+        System.out.println(">>>>>> : cartItemIdList" +cartItemIdList);
+        List<Integer> cartItemIdIntegerList= cartItemIdList.stream().map(Integer::parseInt).collect(Collectors.toList());
+        System.out.println(">>>>>> : cartItemIdIntegerList" +cartItemIdIntegerList);
+
+        for(int i:cartItemIdIntegerList){
+            orderSvc.updateOrderCartItem(order.getOrder_id(),i);
+            System.out.println(">>>>>> : i" +i);
+        }
+        
+
         return mvc;
     }
-
-
 
 }

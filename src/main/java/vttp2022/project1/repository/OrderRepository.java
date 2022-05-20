@@ -25,10 +25,9 @@ public class OrderRepository implements Queries{
         template.update(conn -> {
             PreparedStatement ps = conn.prepareStatement(SQL_INSERT_ORDER, 
                 Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, order.getShipping_address());
-            ps.setDouble(2, order.getTotal_amount());
-            ps.setDate(3, order.getOrder_date());
-            ps.setString(4, order.getUsername());
+            ps.setDouble(1, order.getTotal_amount());
+            ps.setDate(2, order.getOrder_date());
+            ps.setString(3, order.getUsername());
             return ps;
         }, keyholder);
 
@@ -36,14 +35,25 @@ public class OrderRepository implements Queries{
         return bigint.intValue();
     }
 
-    public boolean updateOrderCartItem(Cart cart){
+    public boolean updateOrderCartItem(Integer cartId,Integer orderId){
        
         int count = template.update(SQL_UPDATE_ORDER_CART_ITEMS,
-        cart.getOrder_id(),
-        cart.getUsername());
+        orderId,cartId);
 
         return count == 1;
     }
+
+    public boolean updateOrderPayment(Order order){
+       
+        int count = template.update(SQL_UPDATE_ORDER_PAYMENT,
+        order.getPayment_intent(),
+        order.getPayment_intent_client_secret(),
+        order.getOrder_id());
+
+        return count == 1;
+    }
+
+
 
 
 }

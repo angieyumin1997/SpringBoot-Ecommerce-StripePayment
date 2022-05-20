@@ -1,5 +1,6 @@
 package vttp2022.project1.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class CartService {
     public Double grandTotal(Cart cart){
         Double grandTotal = cartRepo.grandTotal(cart);
         return grandTotal;
+    }
+
+    public List<Integer> selectAllCartItemsId(Cart cart){
+        List <Integer> cartItemsIdList = new LinkedList<>();
+        cartItemsIdList = cartRepo.selectAllCartItemsId(cart);
+        return cartItemsIdList;
     }
 
 

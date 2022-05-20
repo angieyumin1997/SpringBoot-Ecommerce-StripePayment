@@ -43,8 +43,8 @@ create table orders(
     order_id int auto_increment not null,
     total_amount double not null,
     order_date date not null,
-    payment_intent varchar(1000) not null,
-    payment_intent_client_secret varchar(1000) not null,
+    payment_intent varchar(128),
+    payment_intent_client_secret varchar(128),
 
     username varchar(128) not null,
 

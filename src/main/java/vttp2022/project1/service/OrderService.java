@@ -18,8 +18,12 @@ public class OrderService {
         return order_id;
     }
 
-    public void updateOrderCartItem(Cart cart) {
-        orderRepo.updateOrderCartItem(cart);
+    public void updateOrderCartItem(Integer cartId,Integer orderId) {
+        orderRepo.updateOrderCartItem(orderId,cartId);
     }
-    
+
+    public void updateOrderPayment(Order order) {
+        orderRepo.updateOrderPayment(order);
+    }
+
 }

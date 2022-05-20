@@ -111,8 +111,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <tr>
                     <th scope="row"></th>
                     <td colspan="3"></td>
-                    <td colspan="2"></span><a href="/checkout"><button type="button" class="btn btn-primary">Checkout</button></td>
-
+                    <form method="POST" action="/checkout">
+                      <td colspan="2"></span><button type="submit" class="btn btn-primary">Checkout</button></td>
+                    </form>
                 </tr>
 
             

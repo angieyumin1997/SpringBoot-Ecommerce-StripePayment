@@ -39,6 +39,18 @@ public class CartRepository implements Queries{
 
         return cartItems;
     }
+    public List<Integer> selectAllCartItemsId(Cart cart) {
+        List <Integer> cartItemsIdList = new LinkedList<>();
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_CART_ITEMS_ID, cart.getUsername());
+        while(rs.next()){
+            Integer cartItemsId = rs.getInt("cart_id");
+
+            cartItemsIdList.add(cartItemsId);
+        }
+
+        return cartItemsIdList;
+    }
+
 
     public boolean deleteCartItem(int cart_id){
         int count = template.update(SQL_REMOVE_CART_ITEM,

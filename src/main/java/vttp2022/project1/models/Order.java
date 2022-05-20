@@ -5,23 +5,30 @@ import java.sql.Date;
 public class Order {
 
     private Integer order_id;
-    private String shipping_address;
     private Double total_amount;
     private Date order_date;
-
+    private String payment_intent;
+    private String payment_intent_client_secret;
     private String username;
+
+    public String getPayment_intent() {
+        return payment_intent;
+    }
+    public void setPayment_intent(String payment_intent) {
+        this.payment_intent = payment_intent;
+    }
+    public String getPayment_intent_client_secret() {
+        return payment_intent_client_secret;
+    }
+    public void setPayment_intent_client_secret(String payment_intent_client_secret) {
+        this.payment_intent_client_secret = payment_intent_client_secret;
+    }
     
     public Integer getOrder_id() {
         return order_id;
     }
     public void setOrder_id(Integer order_id) {
         this.order_id = order_id;
-    }
-    public String getShipping_address() {
-        return shipping_address;
-    }
-    public void setShipping_address(String shipping_address) {
-        this.shipping_address = shipping_address;
     }
     public Double getTotal_amount() {
         return total_amount;

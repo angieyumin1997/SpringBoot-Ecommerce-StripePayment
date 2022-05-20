@@ -62,12 +62,18 @@ public interface Queries {
     public static final String SQL_UPDATE_CART_ITEM=
     "update cart set quantity=? where cart_id=?";
 
+    public static final String SQL_SELECT_ALL_CART_ITEMS_ID=
+    "select cart_id from cart where username=? and payment_status='np'";
+
     public static final String SQL_GRAND_TOTAL=
     "select price * quantity as subtotal from cart where username=? and payment_status='np'";
 
     public static final String SQL_INSERT_ORDER=
-    "insert into orders(shipping_address,total_amount,order_date,username) value (?,?,?,?)";
+    "insert into orders(total_amount,order_date,username) value (?,?,?)";
 
     public static final String SQL_UPDATE_ORDER_CART_ITEMS=
-    "update cart set payment_status='p',order_id=? where username=? and payment_status='np'";
+    "update cart set payment_status='p',order_id=? where cart_id=?";
+
+    public static final String SQL_UPDATE_ORDER_PAYMENT=
+    "update orders set payment_intent=?,payment_intent_client_secret=? where order_id=?";
 }

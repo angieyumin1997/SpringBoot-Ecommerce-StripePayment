@@ -13,6 +13,9 @@ import vttp2022.project1.service.CartService;
 import vttp2022.project1.service.OrderService;
 
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.google.gson.annotations.SerializedName;
 import com.stripe.exception.StripeException;
@@ -52,11 +55,25 @@ public class PaymentController {
         cart.setUsername(username);
         double d = cartSvc.grandTotal(cart); 
         long l = (new Double(d)).longValue();
-   
+
+        long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);  
+
+        Order order = new Order();
+        order.setUsername(username);
+        order.setOrder_date(date);
+        order.setTotal_amount(d);
+        String order_id = Integer.toString(orderSvc.addNewOrder(order));
+
+        List <Integer> cartItemsIdList = new LinkedList<>();
+        cartItemsIdList = cartSvc.selectAllCartItemsId(cart);
+        String listString = cartItemsIdList.stream().map(Object::toString)
+                        .collect(Collectors.joining(", "));
+
         PaymentIntentCreateParams params =
           PaymentIntentCreateParams.builder()
-            //.setCustomer(username)
-            .setDescription("abc123")
+            .putMetadata("order_id", order_id)
+            .setDescription(listString)
             .setAmount(l * 100L)
             .setCurrency("sgd")
             .setAutomaticPaymentMethods(
@@ -66,7 +83,7 @@ public class PaymentController {
               .build()
           )
             .build();
-  
+          
         // Create a PaymentIntent with the order amount and currency
         PaymentIntent paymentIntent = PaymentIntent.create(params);
 
