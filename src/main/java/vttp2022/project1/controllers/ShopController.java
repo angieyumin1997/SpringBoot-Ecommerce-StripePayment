@@ -1,6 +1,5 @@
 package vttp2022.project1.controllers;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +12,6 @@ import java.util.stream.Collectors;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
-import com.stripe.model.PaymentIntentSearchResult;
-import com.stripe.param.PaymentIntentSearchParams;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -269,7 +266,6 @@ public class ShopController {
         PaymentIntent paymentIntent =PaymentIntent.retrieve(
             payment_intent);
 
-
         Map<String, String> orderId = new HashMap<>();
         orderId = paymentIntent.getMetadata();
         System.out.println(">>>>>> : orderId" +orderId);
@@ -292,7 +288,6 @@ public class ShopController {
             System.out.println(">>>>>> : i" +i);
         }
         
-
         return mvc;
     }
 

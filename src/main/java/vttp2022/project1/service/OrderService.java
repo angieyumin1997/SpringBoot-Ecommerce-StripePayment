@@ -3,7 +3,6 @@ package vttp2022.project1.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vttp2022.project1.models.Cart;
 import vttp2022.project1.models.Order;
 import vttp2022.project1.repository.OrderRepository;
 
