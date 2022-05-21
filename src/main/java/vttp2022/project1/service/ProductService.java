@@ -55,4 +55,12 @@ public class ProductService {
         return productRepo.selectOneProductImage(prod_id);
     }
 
+    public List<Product> searchProductsByNameAndCategory(String name,Integer category_id) throws SQLException{
+        return productRepo.searchProductsByNameAndCategory(name,category_id);
+    }
+
+    public List<Product> searchProductsByName(String name) throws SQLException{
+        return productRepo.searchProductsByName(name);
+    }
+
 }

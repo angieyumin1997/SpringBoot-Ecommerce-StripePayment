@@ -116,6 +116,38 @@ public class ProductRepository implements Queries{
          
     }
 
+    public List<Product> searchProductsByNameAndCategory(String name,Integer category_id) throws SQLException{
+        List <Product> products = new LinkedList<>();
+        return template.query(
+            SQL_SEARCH_PRODUCT_BY_NAME_AND_CATEGORY,
+            (ResultSet rs)->{
+                while(rs.next()){
+                final Product product = Product.populateImage(rs);
+                String categoryName = selectProductCategory(product.getCategory_id());
+                product.setCategory(categoryName);
+                products.add(product);}
+                return products;
+            },name,category_id
+
+        );
+    }
+
+    public List<Product> searchProductsByName(String name) throws SQLException{
+        List <Product> products = new LinkedList<>();
+        return template.query(
+            SQL_SEARCH_PRODUCT_BY_NAME,
+            (ResultSet rs)->{
+                while(rs.next()){
+                final Product product = Product.populateImage(rs);
+                String categoryName = selectProductCategory(product.getCategory_id());
+                product.setCategory(categoryName);
+                products.add(product);}
+                return products;
+            },name
+
+        );
+
+    }
 
 
     

@@ -15,6 +15,8 @@ import com.stripe.model.PaymentIntent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,17 +32,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vttp2022.project1.models.Product;
+import vttp2022.project1.repository.Queries;
 import vttp2022.project1.models.Account;
 import vttp2022.project1.models.Cart;
+import vttp2022.project1.models.Category;
 import vttp2022.project1.models.Order;
 import vttp2022.project1.service.CartService;
+import vttp2022.project1.service.CategoryService;
 import vttp2022.project1.service.OrderService;
 import vttp2022.project1.service.ProductService;
 import vttp2022.project1.service.ShopService;
 
 @Controller
 @RequestMapping
-public class ShopController {
+public class ShopController implements Queries{
     
     @Autowired
     private ProductService productSvc;
@@ -53,7 +58,12 @@ public class ShopController {
 
     @Autowired
     private OrderService orderSvc;
-    
+
+    @Autowired
+    private CategoryService categorySvc;
+
+    @Autowired
+    private JdbcTemplate template;
      
     @GetMapping(path="/shop")
     public ModelAndView Shop() throws SQLException{
@@ -61,9 +71,37 @@ public class ShopController {
         mvc.setViewName("shop");
         List<Product> products = productSvc.getAllProductImages();
         mvc.addObject("products",products);
-        
+        List<Category> categories = categorySvc.getAllCategories();
+        mvc.addObject("categories",categories);
+
         return mvc;
    
+    }
+
+    @GetMapping(path="/search")
+    public ModelAndView Search(
+        @RequestParam String name, @RequestParam String category) throws SQLException{
+            ModelAndView mvc = new ModelAndView();
+            mvc.setViewName("shop");
+
+            if(category.equals("All")){
+                System.out.println(">>>>>>  category1: " +category);
+                List<Product> products = productSvc.searchProductsByName(name);
+                mvc.addObject("products",products);
+            }else{
+                System.out.println(">>>>>> category2: " +category);
+                SqlRowSet rs = template.queryForRowSet(SQL_SELECT_CATEGORYID,category);
+                rs.next();
+                Integer category_id=rs.getInt("category_id");
+                List<Product> products = productSvc.searchProductsByNameAndCategory(name,category_id);
+                mvc.addObject("products",products);
+                System.out.println(">>>>>> category2: " +category);
+            }
+
+            List<Category> categories = categorySvc.getAllCategories();
+            mvc.addObject("categories",categories);
+    
+            return mvc;
     }
 
     @GetMapping(path="/shop/product/{prod_id}")
@@ -254,7 +292,7 @@ public class ShopController {
 
     //payment_intent, payment_intent_client_secret
     @GetMapping(path="/checkout/success")
-    public ModelAndView checkoutallgood(Cart cart,
+    public ModelAndView checkOutAllGood(Cart cart,
     @RequestParam String payment_intent, @RequestParam String payment_intent_client_secret) throws StripeException{
         ModelAndView mvc = new ModelAndView();
         mvc.setViewName("checkoutsuccess");

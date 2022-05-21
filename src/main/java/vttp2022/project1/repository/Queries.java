@@ -23,6 +23,9 @@ public interface Queries {
     public static final String SQL_SELECT_CATEGORYID =
     "select category_id from category where category_name=?";
 
+    public static final String SQL_SELECT_CATEGORYNAME=
+    "select category_name from category where category_id=?";
+
     public static final String SQL_SELECT_PRODUCT_CATEGORY =
     "select category_name from category where category_id=?";
 
@@ -76,4 +79,10 @@ public interface Queries {
 
     public static final String SQL_UPDATE_ORDER_PAYMENT=
     "update orders set payment_intent=?,payment_intent_client_secret=? where order_id=?";
+
+    public static final String SQL_SEARCH_PRODUCT_BY_NAME_AND_CATEGORY=
+    "select * from products where name like concat('%',?,'%') and category_id=?";
+
+    public static final String SQL_SEARCH_PRODUCT_BY_NAME=
+    "select * from products where name like concat('%',?,'%')";
 }

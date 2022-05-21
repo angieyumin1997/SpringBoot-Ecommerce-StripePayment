@@ -63,11 +63,35 @@
   </nav>
   <!-- End Navbar -->
   
-
-
 <!-- Products -->
-<h1 class="display-5 text-dark font-weight-bold text-center ">Our New Collections</h1>
+<!-- Filters -->
+<form method="Get" action = "/search" class="container">
+      <div class="col">
+      <div class="row mt-5">
+          <div class="col">
+              <input type="text" class="form-control" name="name" id="name" placeholder="Search By Name">
+          </div>
+      </div>
+      <div class="row mt-5">
+          <div class="col">
+              <select class="form-select" name="category" id="category">
+              <option value="All" selected="All">All Category</option>
+              <option th:each="category : ${categories}" th:value="${category.category_name}" th:utext="${category.category_name}"></option>
+            </select>
+          </div>
+      </div>
+      <div class="row mt-5">
+          <div class="col">
+              <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-3">Search</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
 
+
+<!-- end filters -->
 <div class="d-flex bd-highlight justify-content-center row">
 
     <div class="bd-highlight col-12 col-lg-4 box" data-th-each="p: ${products}">

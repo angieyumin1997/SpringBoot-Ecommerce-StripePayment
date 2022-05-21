@@ -23,7 +23,7 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
 @RestController
-public class PaymentController {
+public class PaymentRestController {
 
     @Autowired
     private OrderService orderSvc;
