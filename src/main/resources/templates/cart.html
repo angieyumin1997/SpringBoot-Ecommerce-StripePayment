@@ -66,7 +66,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <!-- cartitems table -->
         <h3 data-th-if="${#lists.isEmpty(cartItems)}" class="mt-3vh">
-            There is no item in your cart! Try adding some
+          <h1 class="display-5 text-dark font-weight-bold text-center">There is no item in your cart! Try adding some</h1>
         </h3>
         <table data-th-unless="${#lists.isEmpty(cartItems)}"  class="container mt-3vh table ">
             <thead>

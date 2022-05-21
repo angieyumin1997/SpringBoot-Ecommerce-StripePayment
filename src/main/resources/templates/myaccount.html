@@ -74,9 +74,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
      <!-- All orders table -->
      <h1 class="display-5 text-dark font-weight-bold text-center">My Order History</h1>
 
-     <h3 data-th-if="${#lists.isEmpty(orders)}" class="mt-3vh">
-      You have no order! 
-  </h3>
+     <h3 data-th-if="${#lists.isEmpty(orders)}" class="display-5 text-dark font-weight-bold text-center">
+     
+     </h3>
 
   <table data-th-unless="${#lists.isEmpty(orders)}"  class="container mt-3vh table ">
       <thead>
