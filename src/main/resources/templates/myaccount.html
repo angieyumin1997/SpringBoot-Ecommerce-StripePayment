@@ -65,20 +65,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- End Navbar -->
 
 <!-- Acknowledge user -->
-
-    <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-    Welcome, [[${#httpServletRequest.remoteUser}]]!
-    </div>
+<!-- 
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')"class="container">
+      <h1 class="display-5 text-dark font-weight-bold">Welcome, [[${#httpServletRequest.remoteUser}]]!</h1>
+    </div> -->
 <!-- end Acknowledge user -->
 
-<!-- Logout -->
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-primary">Log out</button>
-     </form>
-<!-- end logout -->
-
-
      <!-- All orders table -->
+     <h1 class="display-5 text-dark font-weight-bold text-center">My Order History</h1>
 
      <h3 data-th-if="${#lists.isEmpty(orders)}" class="mt-3vh">
       You have no order! 
@@ -107,6 +101,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   </table>
 
     <!-- end all orders table -->
+
+    <!-- Logout -->
+    <form th:action="@{/logout}" method="post" class="container my-4 ">
+      <button type="submit" class="btn btn-primary">Log out</button>
+   </form>
+<!-- end logout -->
 
 <!-- Footer -->
  <footer class="row">
