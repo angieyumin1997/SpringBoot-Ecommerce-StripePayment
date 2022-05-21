@@ -85,4 +85,13 @@ public interface Queries {
 
     public static final String SQL_SEARCH_PRODUCT_BY_NAME=
     "select * from products where name like concat('%',?,'%')";
+
+    public static final String SQL_SELECT_USER_PAID_ORDERS=
+    "select * from orders where username=? and payment_intent is not null and payment_intent_client_secret is not null;";
+
+    public static final String SQL_SELECT_ALL_PAID_ORDERS=
+    "select * from orders where payment_intent is not null and payment_intent_client_secret is not null";
+
+    public static final String SQL_SELECT_USER_PAID_CART_ITEMS=
+    "select * from cart where order_id=?";
 }

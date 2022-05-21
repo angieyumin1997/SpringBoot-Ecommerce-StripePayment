@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import vttp2022.project1.models.Cart;
 import vttp2022.project1.models.Order;
 
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Repository
@@ -53,6 +56,27 @@ public class OrderRepository implements Queries{
         return count == 1;
     }
 
+    public List<Order> selectAllUserPaidOrders(String username){
+        List <Order> orders = new LinkedList<>();
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_USER_PAID_ORDERS,username);
+        while(rs.next()){
+            Order order = Order.convert(rs);
+            orders.add(order);
+        }
+
+        return orders;
+    }
+
+    public List<Order> selectAllPaidOrders(){
+        List <Order> orders = new LinkedList<>();
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_PAID_ORDERS);
+        while(rs.next()){
+            Order order = Order.convert(rs);
+            orders.add(order);
+        }
+
+        return orders;
+    }
 
 
 

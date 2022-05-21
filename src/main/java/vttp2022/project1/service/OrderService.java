@@ -1,5 +1,7 @@
 package vttp2022.project1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,14 @@ public class OrderService {
 
     public void updateOrderPayment(Order order) {
         orderRepo.updateOrderPayment(order);
+    }
+
+    public List<Order> selectAllUserPaidOrders(String username){
+        return orderRepo.selectAllUserPaidOrders(username);
+    }
+
+    public List<Order> selectAllPaidOrders(){
+        return orderRepo.selectAllPaidOrders();
     }
 
 }

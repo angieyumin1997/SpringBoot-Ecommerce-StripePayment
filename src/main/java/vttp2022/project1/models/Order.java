@@ -2,6 +2,8 @@ package vttp2022.project1.models;
 
 import java.sql.Date;
 
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 public class Order {
 
     private Integer order_id;
@@ -48,6 +50,15 @@ public class Order {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public static Order convert(SqlRowSet rs){
+        Order order = new Order();
+        order.setOrder_id(rs.getInt("order_id"));
+        order.setTotal_amount(rs.getDouble("total_amount"));
+        order.setOrder_date(rs.getDate("order_date"));
+        order.setUsername(rs.getString("username"));
+        return order;
     }
 
 }

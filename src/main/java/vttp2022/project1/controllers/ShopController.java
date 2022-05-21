@@ -262,10 +262,50 @@ public class ShopController implements Queries{
     @GetMapping(path="/myaccount")
     public ModelAndView myaccount(){
         ModelAndView mvc = new ModelAndView();
+        List <Order> orders = new LinkedList<>();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        orders = orderSvc.selectAllUserPaidOrders(username);
+        System.out.println(">>>>>> orders: " +orders);
+        mvc.addObject("orders",orders);
         mvc.setViewName("myaccount");
         return mvc;
     }
 
+    @GetMapping(path="myaccount/items/{order_id}")
+    public ModelAndView viewUserPaidItems(@PathVariable(name="order_id") Integer order_id) throws SQLException{
+
+        List <Cart> cartItems = new LinkedList<>();
+        cartItems = cartSvc.selectUserPaidCartItems(order_id);
+        System.out.println(">>>>>> cartItems: " +cartItems);
+        ModelAndView mvc = new ModelAndView();
+        mvc.addObject("cartItems",cartItems);
+        mvc.setViewName("items");
+        
+        return mvc;
+    }
+
+    @GetMapping(path="/admin/order")
+    public ModelAndView order(){
+        ModelAndView mvc = new ModelAndView();
+        List <Order> orders = new LinkedList<>();
+        orders = orderSvc.selectAllPaidOrders();
+        mvc.addObject("orders",orders);
+        mvc.setViewName("order");
+        return mvc;
+    }
+
+    @GetMapping(path="/admin/order/items/{order_id}")
+    public ModelAndView viewOrderPaidItems(@PathVariable(name="order_id") Integer order_id) throws SQLException{
+
+        List <Cart> cartItems = new LinkedList<>();
+        cartItems = cartSvc.selectUserPaidCartItems(order_id);
+        ModelAndView mvc = new ModelAndView();
+        mvc.addObject("cartItems",cartItems);
+        mvc.setViewName("items");
+        
+        return mvc;
+    }
 
     @PostMapping(path="/checkout")
     public ModelAndView checkOut(Cart cart){
@@ -328,5 +368,6 @@ public class ShopController implements Queries{
         
         return mvc;
     }
+
 
 }

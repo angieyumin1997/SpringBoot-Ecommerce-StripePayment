@@ -45,7 +45,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 </div>
                 <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Orders</a>
+                    <a class="nav-link" href="/admin/order">Orders</a>
                   </li>
                 </div>
                   <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">

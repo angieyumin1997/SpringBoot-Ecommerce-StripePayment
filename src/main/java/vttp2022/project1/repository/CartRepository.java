@@ -79,4 +79,15 @@ public class CartRepository implements Queries{
         return grandTotal;
     }
 
+    public List<Cart> selectUserPaidCartItems(Integer order_id) {
+        List <Cart> cartItems = new LinkedList<>();
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_USER_PAID_CART_ITEMS, order_id);
+        while(rs.next()){
+            Cart cartItem = Cart.convert(rs);
+            cartItems.add(cartItem);
+        }
+
+        return cartItems;
+    }
+
 }

@@ -41,5 +41,8 @@ public class CartService {
         return cartItemsIdList;
     }
 
+    public List<Cart> selectUserPaidCartItems(Integer order_id){
+        return cartRepo.selectUserPaidCartItems(order_id);
+    }
 
 }

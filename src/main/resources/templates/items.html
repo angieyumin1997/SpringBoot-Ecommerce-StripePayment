@@ -7,7 +7,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <title>Yonge Sports</title>
      <style>
@@ -45,7 +45,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       </div>
       <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
         <li class="nav-item">
-          <a class="nav-link" href="/admin/order">Orders</a>
+          <a class="nav-link" href="#">Orders</a>
         </li>
       </div>
         <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
@@ -58,59 +58,42 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <a class="nav-link" href="/cart"><i class="fas fa-shopping-cart"></i></a>
           </li>
           </div>
-      </div>
       </ul>
     </div>
   </div>
 </nav>
 <!-- End Navbar -->
 
-<div id="top-wrapper">
-<!-- Carousel -->
-  <div id="front-page-carousel" class="carousel slide" data-bs-ride="carousel">
-    <!-- Indicators/dots -->
- <div class="carousel-indicators">
-   <button type="button" data-bs-target="#front-page-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-   <button type="button" data-bs-target="#front-page-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-   <button type="button" data-bs-target="#front-page-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
- </div>
 
-  <!-- The slideshow/carousel -->
- <div class="carousel-inner">
-   <div class="carousel-item active">
-     <img src="/images/cover.jpg" class="d-block w-100" alt="">
-   </div>
-   <div class="carousel-item">
-     <img src="/images/cover1.jpg"  class="d-block w-100" alt="">
-   </div>
-   <div class="carousel-item">
-    <img src="/images/cover2.jpg"  class="d-block w-100" alt="">
-  </div>
+     <!-- All items table -->
 
- </div>
+     <h3 data-th-if="${#lists.isEmpty(cartItems)}" class="mt-3vh">
+      You have no order! 
+  </h3>
 
- <!-- Left and right controls/icons -->
- <button class="carousel-control-prev" type="button" data-bs-target="#front-page-carousel" data-bs-slide="prev">
-   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-   <span class="visually-hidden">Previous</span>
- </button>
- <button class="carousel-control-next" type="button" data-bs-target="#front-page-carousel" data-bs-slide="next">
-   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-   <span class="visually-hidden">Next</span>
- </button>
-</div>
-<!-- End Carousel -->
+  <table data-th-unless="${#lists.isEmpty(cartItems)}"  class="container mt-3vh table ">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>SubTotal</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr data-th-each="cartItem: ${cartItems}">
+              <td><span data-th-text="${cartItem.prod_name}"></span></td>
+              <td><span data-th-text="${cartItem.price}"></span></td>
+              <td><span data-th-text="${cartItem.size}"></span></td>
+              <td><span data-th-text="${cartItem.quantity}"></span></td>
+              <td><span data-th-text="${cartItem.price * cartItem.quantity}"></span></td>
+          </tr>
+      </tbody>
 
-<!-- Call to action -->
-<section class="bg-light p-3" id="cta">
-   <h1 class="display-5 text-dark font-weight-bold">NEW ARRIVALS</h1>
-   <p class="lead text-dark font-weight-bold">
-    REFRESH YOUR CLOSET WITH NEW YONGE PIECES
-   </p>
-   <a class="navbar-brand" href="/shop"><button class="btn btn-primary text-light">Shop Now</button></a>
- </section>
-<!-- end call to action -->
-</div>
+  </table>
+
+    <!-- end all items table -->
 
 <!-- Footer -->
  <footer class="row">
