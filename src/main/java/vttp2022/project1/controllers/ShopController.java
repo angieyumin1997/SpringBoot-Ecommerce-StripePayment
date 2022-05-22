@@ -14,6 +14,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -64,7 +65,10 @@ public class ShopController implements Queries{
 
     @Autowired
     private JdbcTemplate template;
-     
+    
+    @Value("${stripe.public.key}")
+    private String stripePublicKey;
+
     @GetMapping(path="/shop")
     public ModelAndView Shop() throws SQLException{
         ModelAndView mvc = new ModelAndView();
@@ -323,10 +327,9 @@ public class ShopController implements Queries{
         Double grandTotal = cartSvc.grandTotal(cart);
         mvc.addObject("grandTotal",grandTotal);
         mvc.addObject("cartId", cart.getCart_id());
-
+        mvc.addObject("stripePublicKey",stripePublicKey);
         mvc.setViewName("checkout");
 
-    
         return mvc;
     }
 
@@ -338,8 +341,6 @@ public class ShopController implements Queries{
         mvc.setViewName("checkoutsuccess");
         System.out.println(">>>>>> payment_intent_client_secret: " +payment_intent_client_secret);
         System.out.println(">>>>>> payment_intent: " +payment_intent);
-
-        Stripe.apiKey = "sk_test_51L0iLFGzWeQzLKycRS8XGb4NYoyr8UgcEOnobrdpktcSRAT65FK5qNOByaw1737AAHrQZ2bhQPAfSuEhVPsaWAIb00VKeK9iAn";
 
         PaymentIntent paymentIntent =PaymentIntent.retrieve(
             payment_intent);

@@ -94,4 +94,5 @@ public interface Queries {
 
     public static final String SQL_SELECT_USER_PAID_CART_ITEMS=
     "select * from cart where order_id=?";
+
 }

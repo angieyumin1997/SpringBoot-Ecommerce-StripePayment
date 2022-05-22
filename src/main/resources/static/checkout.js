@@ -1,5 +1,5 @@
       // This is your test publishable API key.
-      const stripe = Stripe("pk_test_51L0iLFGzWeQzLKycEwGTuX9R7IdkMH8WkV2aG4nq9jDgL0GYyqS3lj28hlNs3hOYfwk38EQusqNcLApztJ2yDyOj00utUYZFiC");
+      const stripe = Stripe(stripePublicKey);
 
       // The items the customer wants to buy
       const items = [{ id: "xl-tshirt" }];
@@ -39,7 +39,7 @@
           elements,
           confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: "http://yuminproject1.herokuapp.com/checkout/success",
+            return_url: "http://localhost:8080/checkout/success",
           },
         });
       
