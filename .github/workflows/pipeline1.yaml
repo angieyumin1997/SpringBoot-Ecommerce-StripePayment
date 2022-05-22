@@ -2,6 +2,8 @@ name: Compile, test, deploy
 on: ["push"]
 env:
   SPRING_DATASOURCE_PASSWORD: ${{secrets.SPRING_DATASOURCE_PASSWORD}}
+  STRIPE_API_KEY: ${{secrets.STRIPE_API_KEY}}
+  STRIPE_API_KEY: ${{secrets.STRIPE_API_KEY}}
 jobs:
   step1:
     runs-on: ubuntu-latest
