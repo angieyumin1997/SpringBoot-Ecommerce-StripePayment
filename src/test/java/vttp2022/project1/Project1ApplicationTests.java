@@ -162,21 +162,21 @@ class Project1ApplicationTests {
 		Assertions.assertEquals(200, status);
 	}
 
-	// @Test
-	// @WithMockUser(username="yumin",roles={"ADMIN"})
-	// public void addCategory() throws Exception {
+	@Test
+	@WithMockUser(username="yumin",roles={"ADMIN"})
+	public void addCategory() throws Exception {
 
-	// 	RequestBuilder req = MockMvcRequestBuilders.post("/admin/category")
-	// 	.accept(MediaType.APPLICATION_FORM_URLENCODED)
-	// 	.contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	// 	.param("name", "yoga mat")
-	// 	.param("description", "yoga mat");
+		RequestBuilder req = MockMvcRequestBuilders.post("/admin/category")
+		.accept(MediaType.APPLICATION_FORM_URLENCODED)
+		.contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+		.param("name", "yoga mat")
+		.param("description", "yoga mat");
 
-	// 	MvcResult result = mvc.perform(req).andReturn();
-	// 	int status = result.getResponse().getStatus();
+		MvcResult result = mvc.perform(req).andReturn();
+		int status = result.getResponse().getStatus();
 
-	// 	Assertions.assertEquals(200, status);
-	// }
+		Assertions.assertEquals(200, status);
+	}
 
 	@Test
 	@WithMockUser(username="yumin",roles={"ADMIN"})
@@ -315,23 +315,23 @@ class Project1ApplicationTests {
 		Assertions.assertEquals(200, status);
 	}
 
-	// @Test
-	// public void registerSuccess() throws Exception {
+	@Test
+	public void registerSuccess() throws Exception {
 
-	// 	RequestBuilder req = MockMvcRequestBuilders.post("/register/success")
-	// 	.accept(MediaType.APPLICATION_FORM_URLENCODED)
-	// 	.contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	// 	.param("username", "david")
-	// 	.param("password","david")
-	// 	.param("name","david")
-	// 	.param("address","singapore")
-	// 	.param("number","123456");
+		RequestBuilder req = MockMvcRequestBuilders.post("/register/success")
+		.accept(MediaType.APPLICATION_FORM_URLENCODED)
+		.contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+		.param("username", "david")
+		.param("password","david")
+		.param("name","david")
+		.param("address","singapore")
+		.param("number","123456");
 
-	// 	MvcResult result = mvc.perform(req).andReturn();
-	// 	int status = result.getResponse().getStatus();
+		MvcResult result = mvc.perform(req).andReturn();
+		int status = result.getResponse().getStatus();
 
-	// 	Assertions.assertEquals(200, status);
-	// }
+		Assertions.assertEquals(200, status);
+	}
 
 	@Test
 	@WithMockUser(username="yumin",roles={"ADMIN"})
@@ -347,18 +347,18 @@ class Project1ApplicationTests {
 		Assertions.assertEquals(200, status);
 	}
 
-	// @Test
-	// @WithMockUser(username="yumin",roles={"ADMIN"})
-	// public void removeCartItem() throws Exception {
+	@Test
+	@WithMockUser(username="yumin",roles={"ADMIN"})
+	public void removeCartItem() throws Exception {
 
-	// 	RequestBuilder req = MockMvcRequestBuilders.get("/cart/remove/41")
-	// 	.accept(MediaType.TEXT_HTML);
+		RequestBuilder req = MockMvcRequestBuilders.get("/cart/remove/40")
+		.accept(MediaType.TEXT_HTML);
 
-	// 	MvcResult result = mvc.perform(req).andReturn();
-	// 	int status = result.getResponse().getStatus();
+		MvcResult result = mvc.perform(req).andReturn();
+		int status = result.getResponse().getStatus();
 
-	// 	Assertions.assertEquals(200, status);
-	// }
+		Assertions.assertEquals(200, status);
+	}
 
 	@Test
 	@WithMockUser(username="yumin",roles={"ADMIN"})
