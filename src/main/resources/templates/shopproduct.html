@@ -74,7 +74,7 @@
         <div><p class="lead" data-th-text ="${product.description}"></p></div>
         <div><p class="lead" data-th-text ="'$' + ${product.price}"></p></div>
         
-        <form method="GET" action ="/addToCart">
+        <form method="Post" action ="/addToCart">
           <input type="hidden" id="prod_id" name="prod_id" th:value="${product.prod_id}">
           <div class="form-group mt-4">
             <label for="size">Size</label>

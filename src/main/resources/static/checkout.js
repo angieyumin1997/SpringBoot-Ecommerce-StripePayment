@@ -39,7 +39,7 @@
           elements,
           confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: "http://localhost:8080/checkout/success",
+            return_url: "https://yuminproject1.herokuapp.com/checkout/success",
           },
         });
       

@@ -125,10 +125,10 @@ public class AdminController {
     @PostMapping(path="/product",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ModelAndView addProduct(
         @RequestParam MultipartFile image,
-        @RequestPart String name,
-        @RequestPart String description,
-        @RequestPart String price,
-        @RequestPart String category
+        @RequestParam String name,
+        @RequestParam String description,
+        @RequestParam String price,
+        @RequestParam String category
     ) throws SQLException{
         byte[] buff = new byte[0];
 

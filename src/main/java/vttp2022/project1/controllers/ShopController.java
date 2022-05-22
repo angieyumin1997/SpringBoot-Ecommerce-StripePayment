@@ -186,7 +186,7 @@ public class ShopController implements Queries{
     }
 
 
-    @GetMapping(path="/addToCart")
+    @PostMapping(path="/addToCart")
     public ModelAndView addToCart(
         @RequestParam (name="size") String size, 
         @RequestParam (name="quantity") Integer quantity,
