@@ -321,9 +321,9 @@ class Project1ApplicationTests {
 		RequestBuilder req = MockMvcRequestBuilders.post("/register/success")
 		.accept(MediaType.APPLICATION_FORM_URLENCODED)
 		.contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-		.param("username", "yusof")
-		.param("password","yusof")
-		.param("name","yusof")
+		.param("username", "mandy")
+		.param("password","mandy")
+		.param("name","mandy")
 		.param("address","singapore")
 		.param("number","123456");
 
@@ -351,7 +351,7 @@ class Project1ApplicationTests {
 	@WithMockUser(username="yumin",roles={"ADMIN"})
 	public void removeCartItem() throws Exception {
 
-		RequestBuilder req = MockMvcRequestBuilders.get("/cart/remove/66")
+		RequestBuilder req = MockMvcRequestBuilders.get("/cart/remove/44")
 		.accept(MediaType.TEXT_HTML);
 
 		MvcResult result = mvc.perform(req).andReturn();
