@@ -377,7 +377,7 @@ class Project1ApplicationTests {
 	@WithMockUser(username="yumin",roles={"ADMIN"})
 	public void addProduct() throws Exception {
 
-		File f = new File("C:\\Users\\65850\\Desktop\\project1\\src\\test\\java\\vttp2022\\project1\\item4.webp");
+		File f = new File("yuminproject1\\src\\test\\java\\vttp2022\\project1\\item4.webp");
 		FileInputStream fi1 = new FileInputStream(f);
 		MockMultipartFile fstmp = new MockMultipartFile("image", "item4.webp", "multipart/form-data",fi1);
 		RequestBuilder req = MockMvcRequestBuilders
