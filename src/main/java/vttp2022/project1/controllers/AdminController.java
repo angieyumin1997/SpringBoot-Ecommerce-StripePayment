@@ -191,13 +191,13 @@ public class AdminController {
         return mvc;
     }
 
-    @PostMapping(path="/product/updateproduct")
+    @PostMapping(path="/product/updateproduct",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ModelAndView updateProduct( @RequestParam MultipartFile image,
-        @RequestPart String name,
-        @RequestPart String description,
-        @RequestPart String price,
-        @RequestPart String category,
-        @RequestPart String id
+        @RequestParam String name,
+        @RequestParam String description,
+        @RequestParam String price,
+        @RequestParam String category,
+        @RequestParam String id
     ) throws SQLException{
         byte[] buff = new byte[0];
 

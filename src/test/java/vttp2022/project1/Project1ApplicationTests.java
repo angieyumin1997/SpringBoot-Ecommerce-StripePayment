@@ -376,8 +376,8 @@ class Project1ApplicationTests {
 	@Test
 	@WithMockUser(username="yumin",roles={"ADMIN"})
 	public void addProduct() throws Exception {
-
-		File f = new File("./item4.webp");
+		String filePath = "src/test/java/vttp2022/project1/item4.webp";
+		File f = new File(filePath);
 		FileInputStream fi1 = new FileInputStream(f);
 		MockMultipartFile fstmp = new MockMultipartFile("image", "item4.webp", "multipart/form-data",fi1);
 		RequestBuilder req = MockMvcRequestBuilders
@@ -389,6 +389,30 @@ class Project1ApplicationTests {
 		.queryParam("description", "Crop Top")
 		.queryParam("price", "44")
 		.queryParam("category", "Crop Top");
+		
+		MvcResult result = mvc.perform(req).andReturn();
+		int status = result.getResponse().getStatus();
+
+		Assertions.assertEquals(200, status);
+	}
+
+	@Test
+	@WithMockUser(username="yumin",roles={"ADMIN"})
+	public void updateProduct() throws Exception {
+		String filePath = "src/test/java/vttp2022/project1/item4.webp";
+		File f = new File(filePath);
+		FileInputStream fi1 = new FileInputStream(f);
+		MockMultipartFile fstmp = new MockMultipartFile("image", "item4.webp", "multipart/form-data",fi1);
+		RequestBuilder req = MockMvcRequestBuilders
+		.multipart("/admin/product/updateproduct")
+        .file(fstmp)
+		.accept(MediaType.TEXT_HTML_VALUE)
+		.contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+		.queryParam("name", "Crop Top")
+		.queryParam("description", "Crop Top")
+		.queryParam("price", "44")
+		.queryParam("category", "Crop Top")
+		.queryParam("id", "8");
 		
 		MvcResult result = mvc.perform(req).andReturn();
 		int status = result.getResponse().getStatus();
