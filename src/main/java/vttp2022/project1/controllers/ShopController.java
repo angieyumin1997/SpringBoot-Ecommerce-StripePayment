@@ -334,16 +334,19 @@ public class ShopController implements Queries{
     }
 
     //payment_intent, payment_intent_client_secret
-    @GetMapping(path="/checkout/success")
+    @GetMapping(path="/checkout/result")
     public ModelAndView checkOutAllGood(Cart cart,
     @RequestParam String payment_intent, @RequestParam String payment_intent_client_secret) throws StripeException{
         ModelAndView mvc = new ModelAndView();
-        mvc.setViewName("checkoutsuccess");
         System.out.println(">>>>>> payment_intent_client_secret: " +payment_intent_client_secret);
         System.out.println(">>>>>> payment_intent: " +payment_intent);
 
         PaymentIntent paymentIntent =PaymentIntent.retrieve(
             payment_intent);
+
+        String status = paymentIntent.getStatus();
+        System.out.println(">>>>>> : status" +status);
+        if (status.equals("succeeded")){
 
         Map<String, String> orderId = new HashMap<>();
         orderId = paymentIntent.getMetadata();
@@ -366,7 +369,11 @@ public class ShopController implements Queries{
             orderSvc.updateOrderCartItem(order.getOrder_id(),i);
             System.out.println(">>>>>> : i" +i);
         }
-        
+        mvc.setViewName("checkoutsuccess");
+      
+        } else{
+            mvc.setViewName("paymenterror");
+        }
         return mvc;
     }
 
